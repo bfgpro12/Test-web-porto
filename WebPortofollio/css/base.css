@@ -1,0 +1,169 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&display=swap');
+
+:root{
+  --bg: #061018;
+  --panel: rgba(255,255,255,0.03);
+  --accent: #7afcff;
+  --accent-2: #8ef7a8;
+  --muted: #9aa7b2;
+  --glass: rgba(255,255,255,0.04);
+  --text: #eafafb;
+  --radius: 12px;
+  --max-width: 1100px;
+}
+
+*{box-sizing:border-box}
+html,body{height:100%}
+
+/* Make pages consistent: header, main, footer share same max width and main fills viewport */
+body{margin:0;background:linear-gradient(180deg,#04060a,var(--bg));color:var(--text);font-family:"Helvetica Neue", Helvetica, Arial, sans-serif;-webkit-font-smoothing:antialiased;display:flex;flex-direction:column;min-height:100vh;padding-top:64px}
+
+/* headings and brand use Space Grotesk for a futuristic, geometric look */
+h1,h2,h3,h4,h5,h6,.brand{font-family:'Space Grotesk', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;margin:0}
+.brand{font-weight:700;letter-spacing:0.4px}
+
+a{color:inherit}
+.site-header{display:flex;justify-content:space-between;align-items:center;max-width:var(--max-width);margin:0 auto;width:100%;box-sizing:border-box;height:64px;padding:0 clamp(20px,2.5vw,28px);position:fixed;top:0;left:0;right:0;z-index:999;background:transparent}
+
+/* Enforce identical header layout across all pages */
+.site-header, .site-header *{box-sizing:border-box}
+.site-header{height:64px !important}
+.site-header > *{height:100%;display:flex;align-items:center}
+.site-header .brand{margin:0;padding:0;line-height:1;display:flex;align-items:center}
+.site-header .nav{height:100%;align-items:center}
+.site-header .nav-toggle{height:40px;display:flex;align-items:center;justify-content:center}
+.nav{display:flex;gap:8px;align-items:center;position:relative}
+/* Make nav items evenly spaced and uniform */
+.nav > a{
+  flex: 1 1 0;
+  min-width: 110px;
+  max-width: 260px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 44px;
+  color: var(--muted);
+  text-decoration: none;
+  padding: 0 12px;
+  border-radius: 8px;
+  transition: background .18s ease, color .18s ease, transform .18s ease;
+  /* Use Space Grotesk for nav so letters match headings/brand */
+  font-family: 'Space Grotesk', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  font-weight: 500;
+  font-size: 1rem;
+  letter-spacing: 0.2px;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+  white-space: nowrap;
+  text-transform: none;
+}
+.nav > a:hover{color:var(--text)}
+.nav > a.active{color:var(--text);font-weight:600}
+.nav .cta{background:linear-gradient(90deg,var(--accent),#6be7ff);color:#022}
+.nav-toggle{display:none;border:0;background:transparent;color:var(--muted)}
+.site-footer{padding:20px 28px;max-width:var(--max-width);margin:0 auto;color:var(--muted);display:flex;justify-content:space-between}
+.site-footer{padding:20px 28px;max-width:var(--max-width);margin:0 auto;color:var(--muted);display:flex;justify-content:space-between;align-items:center;height:56px}
+main{flex:1;max-width:var(--max-width);margin:0 auto;padding:clamp(16px,2.5vw,28px);box-sizing:border-box}
+.btn{display:inline-block;padding:10px 14px;border-radius:10px;text-decoration:none}
+.btn.primary{background:linear-gradient(90deg,var(--accent),#6be7ff);color:#022}
+.btn.ghost{border:1px solid rgba(255,255,255,0.06);color:var(--muted)}
+
+@media (max-width:800px){
+  .nav-toggle{display:inline-block}
+  .nav{display:block;gap:6px;max-height:0;overflow:hidden;transition:max-height .38s ease;padding-left:0}
+  /* nav links start hidden and slide down when .open */
+  .nav > a{display:block;opacity:0;transform:translateY(-8px);transition:opacity .28s ease, transform .28s ease}
+  .nav.open{max-height:420px;padding:12px 0}
+  .nav.open > a{opacity:1;transform:none}
+  /* staggered reveal (only count links) */
+  .nav.open > a:nth-of-type(1){transition-delay:.06s}
+  .nav.open > a:nth-of-type(2){transition-delay:.12s}
+  .nav.open > a:nth-of-type(3){transition-delay:.18s}
+  .nav.open > a:nth-of-type(4){transition-delay:.24s}
+  .nav.open > a:nth-of-type(5){transition-delay:.30s}
+  /* mobile: make each link full-width and same height */
+  .nav > a{width:100%;max-width:none;min-width:0;height:48px;padding:0 14px;justify-content:flex-start}
+}
+
+/* Nav toggle icon animation */
+.nav-toggle{font-size:20px;padding:6px 8px;border-radius:8px;background:transparent;border:0;color:var(--muted);cursor:pointer;transition:transform .28s ease}
+.nav-toggle[aria-expanded="true"], .nav-toggle.open{transform:rotate(90deg)}
+
+.page-overlay{position:fixed;inset:0;pointer-events:none;z-index:9999;transform-origin:left center;transform:scaleX(0);transition:transform .42s cubic-bezier(.2,.9,.2,1)}
+.page-overlay.active{transform:scaleX(1);pointer-events:auto}
+.page-overlay .fill{position:absolute;inset:0;background:linear-gradient(135deg, rgba(122,252,255,0.12), rgba(138,247,168,0.12));backdrop-filter:blur(6px)}
+
+@media (prefers-reduced-motion: reduce){
+  .nav-toggle{transition:none}
+  .page-overlay{transition:none}
+}
+
+/* nav indicator highlight box */
+/* Position using `top` so it lines up with nav text vertically */
+.nav-indicator{position:absolute;top:50%;height:36px;background:linear-gradient(90deg,var(--accent),var(--accent-2));border-radius:10px;left:0;width:0;transform:translateX(0) translateY(-50%);transition:transform .38s cubic-bezier(.2,.9,.2,1), width .38s cubic-bezier(.2,.9,.2,1), opacity .28s ease;opacity:0.95;z-index:1}
+
+/* when nav is vertical (mobile open), indicator becomes a left bar that slides vertically */
+@media (max-width:800px){
+  .nav{display:block}
+  .nav-indicator{left:4px;bottom:auto;top:0;width:6px;height:44px;border-radius:6px;transform:none;transition:transform .32s cubic-bezier(.2,.9,.2,1)}
+  .nav a{padding:12px 14px;text-align:left}
+  .nav a.active{background:transparent}
+}
+
+/* Page transition: horizontal slide. Entry direction controlled by classes .enter-from-left/right; exit by .exit-to-left/right */
+body{transform:translateX(8px);transition:transform .38s ease}
+body.is-loaded{transform:none}
+/* exit classes only move horizontally (no fade) */
+.exit-to-left{transform:translateX(-28px)}
+.exit-to-right{transform:translateX(28px)}
+.enter-from-right{transform:translateX(28px)}
+.enter-from-left{transform:translateX(-28px)}
+.is-loaded.enter-from-right,.is-loaded.enter-from-left{transform:none}
+
+/* ensure nav links sit above indicator */
+.nav > a{position:relative;z-index:2}
+
+/* reduce motion preference respect */
+@media (prefers-reduced-motion: reduce){
+  body, .nav, .project-card{transition: none !important}
+}
+
+/* Responsive typography and spacing */
+h1{font-size:clamp(1.4rem,4.5vw,2.6rem);line-height:1.05}
+h2{font-size:clamp(1.15rem,3.6vw,1.8rem)}
+h3{font-size:clamp(1rem,3vw,1.2rem)}
+body{font-size:clamp(14px,1.6vw,16px)}
+.brand{font-size:clamp(18px,3.6vw,22px)}
+
+/* Images and visuals scale */
+img, .thumb, .visual{max-width:100%;height:auto;display:block}
+
+/* utility: stack features on small screens */
+@media (max-width:720px){
+  .features{flex-direction:column;padding:20px}
+  .grid{flex-direction:column}
+}
+
+/* Mobile bottom nav — visible on small screens; follows same visual concept as header nav */
+.mobile-bottom-nav{display:none}
+@media (max-width:720px){
+  /* hide header nav on small screens (we'll show bottom nav instead) */
+  .site-header .nav{display:none}
+
+  .mobile-bottom-nav{
+    display:flex;align-items:center;justify-content:space-around;
+    position:fixed;left:12px;right:12px;bottom:12px;height:64px;padding:8px 12px;border-radius:14px;
+    background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.03));
+    backdrop-filter: blur(8px);box-shadow:0 10px 30px rgba(2,8,12,0.6);z-index:1200;
+  }
+
+  .mobile-bottom-nav .mb-link{display:flex;flex-direction:column;align-items:center;gap:6px;color:var(--muted);text-decoration:none;font-size:12px;padding:8px 10px;border-radius:10px;position:relative;z-index:2}
+  .mobile-bottom-nav .mb-link .lbl{font-size:11px;display:block}
+  .mobile-bottom-nav .mb-link.active{color:var(--text);font-weight:600}
+
+  /* indicator for bottom nav: pill placed behind link and centered vertically */
+  .mobile-bottom-nav .nav-indicator{position:absolute;top:50%;left:0;transform:translateY(-50%);height:48px;border-radius:12px;background:linear-gradient(90deg,var(--accent),var(--accent-2));left:6px;width:0;transition:transform .32s cubic-bezier(.2,.9,.2,1), width .32s cubic-bezier(.2,.9,.2,1);opacity:0.95;z-index:1}
+
+  /* ensure page bottom padding so content isn't hidden by nav */
+  main{padding-bottom:100px}
+}

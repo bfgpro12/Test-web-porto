@@ -1,0 +1,12 @@
+.root{/* variables moved to base.css */}
+body{margin:0}
+.planning{padding:clamp(20px,4.5vw,40px);max-width:900px;margin:0 auto}
+.roadmap{background:rgba(255,255,255,0.02);padding:18px;border-radius:12px}
+.roadmap li{padding:10px 0;border-bottom:1px dashed rgba(255,255,255,0.03)}
+.btn{display:inline-block;margin-top:16px;padding:10px 14px;border-radius:10px;background:linear-gradient(90deg,var(--accent),#6f8bff);color:#022;text-decoration:none}
+
+@media (max-width:720px){
+	.roadmap{padding:12px}
+	.roadmap li{font-size:15px}
+}
+.site-footer{padding:20px 28px;color:var(--muted)}
