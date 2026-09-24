@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="id">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+	<title>Order — Layanan</title>
+	<link rel="stylesheet" href="css/base.css">
+	<link rel="stylesheet" href="css/order.css">
+</head>
+<body>
+	<header class="site-header">
+		<div class="brand">Futurist<span class="dot">.</span></div>
+		<nav class="nav" id="nav">
+			<a href="HalamanUtama.html">Home</a>
+			<a href="Project.html">Project</a>
+			<a href="LatarBelakang.html">Tentang</a>
+			<a href="PlanningKedepan.html">Planning</a>
+			<a href="Order.html" class="active cta">Order</a>
+			<button class="nav-toggle" id="navToggle">☰</button>
+		</nav>
+	</header>
+
+	<main class="order-page">
+		<h1>Pesan Jasa Pengembangan</h1>
+		<form id="orderForm" class="order-form">
+			<label>Nama
+				<input type="text" name="nama" required>
+			</label>
+			<label>Email
+				<input type="email" name="email" required>
+			</label>
+			<label>Paket
+				<select id="paket" name="paket">
+					<option value="basic" data-price="300">Basic — Website Satu Halaman — Rp300k</option>
+					<option value="pro" data-price="750">Pro — Website + CMS kecil — Rp750k</option>
+					<option value="enterprise" data-price="1500">Enterprise — Integrasi & Custom — Rp1.5jt</option>
+				</select>
+			</label>
+			<div class="price">Estimasi: <span id="price">Rp300k</span></div>
+			<button class="btn primary" type="submit">Kirim Permintaan</button>
+		</form>
+		<div id="orderMsg" class="msg" aria-live="polite"></div>
+	</main>
+
+	<footer class="site-footer">© 2025 Futurist</footer>
+	<script src="js/main.js"></script>
+
+	<!-- Mobile bottom navigation (shown only on small screens) -->
+	<nav class="mobile-bottom-nav" aria-label="Navigasi bawah"> 
+		<a href="HalamanUtama.html" class="mb-link">🏠<span class="lbl">Home</span></a>
+		<a href="Project.html" class="mb-link">📁<span class="lbl">Project</span></a>
+		<a href="LatarBelakang.html" class="mb-link">👤<span class="lbl">Tentang</span></a>
+		<a href="PlanningKedepan.html" class="mb-link">📅<span class="lbl">Planning</span></a>
+		<a href="Order.html" class="mb-link active" aria-current="page">🛒<span class="lbl">Order</span></a>
+	</nav>
+</body>
+</html>
